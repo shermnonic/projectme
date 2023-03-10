@@ -1,0 +1,13 @@
+{
+  "name": "386dx25-projectme",
+  "version": "0.1.0",
+  "dependencies": [
+    "boost-property-tree",
+    "glew",
+    "glm",
+    {
+      "name": "qt5",
+      "features": ["essentials"]
+    }
+  ]
+}
