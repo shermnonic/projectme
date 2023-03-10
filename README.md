@@ -13,7 +13,7 @@ Generate build files via cmake e.g. for Windows x64:
 
 Tested with Visual Studio 2022 on Windows 10.
 
-## Acknowledgement
+## Acknowledgements
 
 - The software uses [QNodesEditor by Stanislaw Adazewski](https://adared.ch/qnodeseditor-qt-nodesports-based-data-processing-flow-editor/)
   and includes source code from it in a version from 2012 which is licensed under BSD. Affected files:
