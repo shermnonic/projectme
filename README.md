@@ -16,7 +16,7 @@ Tested with Visual Studio 2022 on Windows 10.
 ## Acknowledgements
 
 - The software uses [QNodesEditor by Stanislaw Adazewski](https://adared.ch/qnodeseditor-qt-nodesports-based-data-processing-flow-editor/)
-  and includes source code from it in a version from 2012 which is licensed under BSD. Affected files:
+  and includes source code from it in a version from 2012, licensed under a BSD license. Affected files:
     - `qneblock.h`
 	- `qneconnection.h`
 	- `qneport.h`
@@ -27,16 +27,19 @@ Tested with Visual Studio 2022 on Windows 10.
 	- `qnodeseditor.cpp`
 
 - The source code contains a down-stripped version of "Distance transform of 1D and 2D images"
-  by Pedro Felzenszwalb in a version from 2006 which is licensed under GPL-2.
+  by Pedro Felzenszwalb in a version from 2006, licensed under a GPL-2 license.
   That particular version seems to be no longer online, but a more recent version 
   from 2012 can be found on the page [Distance Transforms of Sampled Functions](https://cs.brown.edu/people/pfelzens/dt/index.html).
   Affected files:
     - `DistanceTransformFelzenszwalb.h`
 
 - The software uses `QSyntaxHighlighter` sample code from the examples of the Qt Toolkit
-  from 2014 licensed under BSD. Affected files:
+  from 2014, licensed under a BSD license. Affected files:
     - `Highlighter.h`
     - `Highlighter.h`
+
+- This software includes GLSL shaders that use a version of [webgl-noise](https://github.com/ashima/webgl-noise) 
+  by Setfan Gustavson from 2011, licensed under a MIT license.
 
 - The software uses selected icons from the [Tango Icon Library](http://tango.freedesktop.org/Tango_Icon_Library)
   which is released to the Public Domain. 
