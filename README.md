@@ -1,6 +1,6 @@
 # Projectme
 
-Projection mapping of GLSL shaders to several rectangular surfaces, from 2015.
+Projection mapping of GLSL shaders to multiple quadrilaterals, from 2015.
 
 ## Build
 
