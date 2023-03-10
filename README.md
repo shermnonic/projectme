@@ -26,6 +26,9 @@ Tested with Visual Studio 2022 on Windows 10.
 	- `qneport.cpp`
 	- `qnodeseditor.cpp`
 
+- This software includes GLSL shaders that use a version of [webgl-noise by Stefan Gustavson](https://github.com/ashima/webgl-noise) 
+  from 2011, licensed under a MIT license.
+
 - The source code contains a down-stripped version of "Distance transform of 1D and 2D images"
   by Pedro Felzenszwalb in a version from 2006, licensed under a GPL-2 license.
   That particular version seems to be no longer online, but a more recent version 
@@ -37,9 +40,6 @@ Tested with Visual Studio 2022 on Windows 10.
   from 2014, licensed under a BSD license. Affected files:
     - `Highlighter.h`
     - `Highlighter.h`
-
-- This software includes GLSL shaders that use a version of [webgl-noise by Stefan Gustavson](https://github.com/ashima/webgl-noise) 
-  from 2011, licensed under a MIT license.
 
 - The software uses selected icons from the [Tango Icon Library](http://tango.freedesktop.org/Tango_Icon_Library)
   which is released to the Public Domain. 
