@@ -38,8 +38,10 @@ Tested with Visual Studio 2022 on Windows 10.
 
 - The software uses `QSyntaxHighlighter` sample code from the examples of the Qt Toolkit
   from 2014, licensed under a BSD license. Affected files:
+    - `CodeEditor.h`
+    - `CodeEditor.cpp`
     - `Highlighter.h`
-    - `Highlighter.h`
+    - `Highlighter.cpp`
 
 - The software uses selected icons from the [Tango Icon Library](http://tango.freedesktop.org/Tango_Icon_Library)
   which is released to the Public Domain. 
