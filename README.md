@@ -38,8 +38,8 @@ Tested with Visual Studio 2022 on Windows 10.
     - `Highlighter.h`
     - `Highlighter.h`
 
-- This software includes GLSL shaders that use a version of [webgl-noise](https://github.com/ashima/webgl-noise) 
-  by Setfan Gustavson from 2011, licensed under a MIT license.
+- This software includes GLSL shaders that use a version of [webgl-noise by Stefan Gustavson](https://github.com/ashima/webgl-noise) 
+  from 2011, licensed under a MIT license.
 
 - The software uses selected icons from the [Tango Icon Library](http://tango.freedesktop.org/Tango_Icon_Library)
   which is released to the Public Domain. 
