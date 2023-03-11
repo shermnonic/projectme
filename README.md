@@ -15,36 +15,17 @@ Tested with Visual Studio 2022 on Windows 10.
 
 ## Acknowledgements
 
-- The software uses [QNodesEditor by Stanislaw Adazewski](https://adared.ch/qnodeseditor-qt-nodesports-based-data-processing-flow-editor/)
-  and includes source code from it in a version from 2012, licensed under a BSD license. Affected files:
-    - `qneblock.h`
-	- `qneconnection.h`
-	- `qneport.h`
-	- `qnodeseditor.h`
-	- `qneblock.cpp`
-	- `qneconnection.cpp`
-	- `qneport.cpp`
-	- `qnodeseditor.cpp`
+This software uses the following 3rd party components in original or modified form:
 
-- This software includes GLSL shaders that use a version of [webgl-noise by Stefan Gustavson](https://github.com/ashima/webgl-noise) 
-  from 2011, licensed under a MIT license.
-
-- The source code contains a down-stripped version of "Distance transform of 1D and 2D images"
-  by Pedro Felzenszwalb in a version from 2006, licensed under a GPL-2 license.
+- [QAutoGUI](https://code.google.com/p/qautogui/) by Andrea Tagliasacchi licensed under a LGPL license.
+- [QNodesEditor](https://adared.ch/qnodeseditor-qt-nodesports-based-data-processing-flow-editor/)
+  by Stanislaw Adazewski in a version from 2012, licensed under a BSD license.
+- [webgl-noise](https://github.com/ashima/webgl-noise) by Stefan Gustavson from 2011, licensed under a MIT license.
+- "Distance transform of 1D and 2D images" by Pedro Felzenszwalb in a version from 2006, licensed under a GPL-2 license.
   That particular version seems to be no longer online, but a more recent version 
   from 2012 can be found on the page [Distance Transforms of Sampled Functions](https://cs.brown.edu/people/pfelzens/dt/index.html).
-  Affected files:
-    - `DistanceTransformFelzenszwalb.h`
-
-- The software uses `QSyntaxHighlighter` sample code from the examples of the Qt Toolkit
-  from 2014, licensed under a BSD license. Affected files:
-    - `CodeEditor.h`
-    - `CodeEditor.cpp`
-    - `Highlighter.h`
-    - `Highlighter.cpp`
-
-- The software uses selected icons from the [Tango Icon Library](http://tango.freedesktop.org/Tango_Icon_Library)
-  which is released to the Public Domain. 
+- `QSyntaxHighlighter` sample code from the examples of the Qt Toolkit from 2014, licensed under a BSD license.
+- Selected icons from the [Tango Icon Library](http://tango.freedesktop.org/Tango_Icon_Library) which is in the Public Domain. 
 
 ## History
 
