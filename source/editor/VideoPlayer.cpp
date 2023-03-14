@@ -91,80 +91,80 @@ VideoPlayer::VideoPlayer()
   m_sizeChanged(true),
   m_texid(0)
 {
-	init();
+    init();
 }
 
 VideoPlayer::~VideoPlayer()
 {
-	destroy();
+    destroy();
 }
 
 bool VideoPlayer::init()
 {
-	// VLC options
-	char smem_options[1000];
-	sprintf(smem_options
+    // VLC options
+    char smem_options[1000];
+    sprintf(smem_options
       , "#transcode{vcodec=RV24}:smem{"
-		 "video-prerender-callback=%lld,"
-		 "video-postrender-callback=%lld,"
-		 "video-data=%lld},"
-	  , (long long int)(intptr_t)(void*)&cbVideoPrerender
-	  , (long long int)(intptr_t)(void*)&cbVideoPostrender
-	  , (long long int)200); // Test data
+         "video-prerender-callback=%lld,"
+         "video-postrender-callback=%lld,"
+         "video-data=%lld},"
+      , (long long int)(intptr_t)(void*)&cbVideoPrerender
+      , (long long int)(intptr_t)(void*)&cbVideoPostrender
+      , (long long int)200); // Test data
 
-//	  , "#transcode{vcodec=I444,acodec=s16l}:smem{"
+//    , "#transcode{vcodec=I444,acodec=s16l}:smem{"
 // Audio data is omitted:
-//		 "audio-prerender-callback=%lld,"
-//		 "audio-postrender-callback=%lld,"
-//		 "audio-data=%lld,"
-//	  , (long long int)(intptr_t)(void*)&cbAudioPrerender
-//	  , (long long int)(intptr_t)(void*)&cbAudioPostrender
-//	  , (long long int)100   // This would normally be useful data, 100 is just test data
+//       "audio-prerender-callback=%lld,"
+//       "audio-postrender-callback=%lld,"
+//       "audio-data=%lld,"
+//    , (long long int)(intptr_t)(void*)&cbAudioPrerender
+//    , (long long int)(intptr_t)(void*)&cbAudioPostrender
+//    , (long long int)100   // This would normally be useful data, 100 is just test data
 
 // Also have a look at:
 //      libvlc_video_set_callbacks( ... )
 //      libvlc_video_set_format( mp, "RV24", W,H, W * 3 );
 
-	const char * const vlc_args[] = {
-		  "-I", "dummy", // Don't use any interface
-		  "--ignore-config", // Don't use VLC's config
-		  "--extraintf=logger", // Log anything
-		  "--verbose=1", // Be verbose
-		  "--sout", smem_options // Stream to memory
-		   };
-	
+    const char * const vlc_args[] = {
+          "-I", "dummy", // Don't use any interface
+          "--ignore-config", // Don't use VLC's config
+          "--extraintf=logger", // Log anything
+          "--verbose=1", // Be verbose
+          "--sout", smem_options // Stream to memory
+           };
+    
     /* Initialize libVLC */
     m_vlcInstance = libvlc_new(sizeof(vlc_args) / sizeof(vlc_args[0]), vlc_args);
 
     /* Complain in case of broken installation */
     if( m_vlcInstance == NULL ) 
-	{
+    {
         cerr << "VideoPlayer: Could not init libVLC" << endl;
         return false;
     }
-	
-	return true;
+    
+    return true;
 }
 
 void VideoPlayer::destroy()
 {
-	if( m_vlcInstance )
-	{
-		stop();
-		libvlc_release( m_vlcInstance );
-	}
+    if( m_vlcInstance )
+    {
+        stop();
+        libvlc_release( m_vlcInstance );
+    }
 }
 
 bool VideoPlayer::openFile( const char* filename )
 {
-	if( !m_vlcInstance )
-		return false;
-	
-	// Stop if something is playing
+    if( !m_vlcInstance )
+        return false;
+    
+    // Stop if something is playing
     if( m_vlcPlayer && libvlc_media_player_is_playing( m_vlcPlayer ) )
-		stop();
-	
-	/* Create new media */
+        stop();
+    
+    /* Create new media */
     libvlc_media_t *vlcMedia = libvlc_media_new_path( m_vlcInstance, filename );
     if (!vlcMedia)
         return false;
@@ -174,46 +174,46 @@ bool VideoPlayer::openFile( const char* filename )
 
     /* Release the media */
     libvlc_media_release( vlcMedia );
-	
-	// NOTE: Here we would usually integrate the video into the interface
-	//       but that is omitted here since we just want to extract the frame
-	//       data.
-	
-	/* And start playback */
+    
+    // NOTE: Here we would usually integrate the video into the interface
+    //       but that is omitted here since we just want to extract the frame
+    //       data.
+    
+    /* And start playback */
     libvlc_media_player_play( m_vlcPlayer );
-	
-	return true;
+    
+    return true;
 }
 
 void VideoPlayer::play()
 {
-	if( !m_vlcPlayer )
-		return;
-	
-	if( libvlc_media_player_is_playing( m_vlcPlayer ) )
-	{
-		// Pause
-		libvlc_media_player_pause( m_vlcPlayer );
-	}
-	else
-	{
-		// Play again
-		libvlc_media_player_play( m_vlcPlayer );
-	}
+    if( !m_vlcPlayer )
+        return;
+    
+    if( libvlc_media_player_is_playing( m_vlcPlayer ) )
+    {
+        // Pause
+        libvlc_media_player_pause( m_vlcPlayer );
+    }
+    else
+    {
+        // Play again
+        libvlc_media_player_play( m_vlcPlayer );
+    }
 }
 
 void VideoPlayer::stop()
 {
-	if( !m_vlcPlayer )
-		return;	
-	
-	// Stop media player
-	libvlc_media_player_stop( m_vlcPlayer );
-	
-	// Release
-	libvlc_media_player_release( m_vlcPlayer );
-	
-	m_vlcPlayer = NULL;
+    if( !m_vlcPlayer )
+        return; 
+    
+    // Stop media player
+    libvlc_media_player_stop( m_vlcPlayer );
+    
+    // Release
+    libvlc_media_player_release( m_vlcPlayer );
+    
+    m_vlcPlayer = NULL;
 }
 
 void VideoPlayer::poll()

@@ -34,55 +34,55 @@ class QNEConnection;
 class QNEPort : public QGraphicsPathItem
 {
 public:
-	enum { Type = QGraphicsItem::UserType + 1 };
-	enum { NamePort = 1, TypePort = 2 };
+    enum { Type = QGraphicsItem::UserType + 1 };
+    enum { NamePort = 1, TypePort = 2 };
 
-	QNEPort(QGraphicsItem *parent = 0, QGraphicsScene *scene = 0);
-	~QNEPort();
+    QNEPort(QGraphicsItem *parent = 0, QGraphicsScene *scene = 0);
+    ~QNEPort();
 
-	void setNEBlock(QNEBlock*);
-	void setName(const QString &n);
-	void setIsOutput(bool o);
-	int radius();
-	bool isOutput();
-	QVector<QNEConnection*>& connections();
-	void setPortFlags(int);
+    void setNEBlock(QNEBlock*);
+    void setName(const QString &n);
+    void setIsOutput(bool o);
+    int radius();
+    bool isOutput();
+    QVector<QNEConnection*>& connections();
+    void setPortFlags(int);
 
-	// Note that max allowed connections are not enforced here but in 
-	// qnodeseditor where connections are established.
-	void setMaxAllowedConnections(int i){ m_maxAllowedConnections=i;} // -1 = no restriction
-	int maxAllowedConnections() const { return m_maxAllowedConnections; }
-	bool isNewConnectionAllowed() const 
-	{ 
-		return (m_maxAllowedConnections<0) ? true : (m_connections.size()<m_maxAllowedConnections);
-	}
+    // Note that max allowed connections are not enforced here but in 
+    // qnodeseditor where connections are established.
+    void setMaxAllowedConnections(int i){ m_maxAllowedConnections=i;} // -1 = no restriction
+    int maxAllowedConnections() const { return m_maxAllowedConnections; }
+    bool isNewConnectionAllowed() const 
+    { 
+        return (m_maxAllowedConnections<0) ? true : (m_connections.size()<m_maxAllowedConnections);
+    }
 
-	const QString& portName() const { return name; }
-	int portFlags() const { return m_portFlags; }
+    const QString& portName() const { return name; }
+    int portFlags() const { return m_portFlags; }
 
-	int type() const { return Type; }
+    int type() const { return Type; }
 
-	QNEBlock* block() const;
+    QNEBlock* block() const;
 
-	quint64 ptr();
-	void setPtr(quint64);
+    quint64 ptr();
+    void setPtr(quint64);
 
-	bool isConnected(QNEPort*);
+    bool isConnected(QNEPort*);
 
 protected:
-	QVariant itemChange(GraphicsItemChange change, const QVariant &value);
+    QVariant itemChange(GraphicsItemChange change, const QVariant &value);
 
 private:
-	QNEBlock *m_block;
-	QString name;
-	bool isOutput_;
-	QGraphicsTextItem *label;
-	int radius_;
-	int margin;
-	QVector<QNEConnection*> m_connections;
-	int m_portFlags;
-	quint64 m_ptr;
-	int m_maxAllowedConnections;
+    QNEBlock *m_block;
+    QString name;
+    bool isOutput_;
+    QGraphicsTextItem *label;
+    int radius_;
+    int margin;
+    QVector<QNEConnection*> m_connections;
+    int m_portFlags;
+    quint64 m_ptr;
+    int m_maxAllowedConnections;
 };
 
 #endif // QNEPORT_H

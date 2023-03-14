@@ -10,15 +10,15 @@
 class VideoPlayer
 {
 public:
-	VideoPlayer();
-	~VideoPlayer();
+    VideoPlayer();
+    ~VideoPlayer();
 
-	bool openFile( const char* filename );
+    bool openFile( const char* filename );
     void setTexture( int texid ) { m_texid = texid; }
 
     //@{ Playback controls
     void play();
-	void stop();
+    void stop();
     //@}
 
     //@{ Polling mechanism
@@ -29,13 +29,13 @@ public:
     //@}
 
 protected:
-	bool init();
-	void destroy();
+    bool init();
+    void destroy();
     void updateTexture();
 
 private:
-	libvlc_instance_t*     m_vlcInstance;
-	libvlc_media_player_t* m_vlcPlayer;
+    libvlc_instance_t*     m_vlcInstance;
+    libvlc_media_player_t* m_vlcPlayer;
 
     int m_width, m_height;
     bool m_sizeChanged;

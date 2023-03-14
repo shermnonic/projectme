@@ -13,73 +13,73 @@ using GL::GLSLProgram;
 #endif
 
 /**
-	\class ParticleModule
+    \class ParticleModule
 
-	Simple GPU based state-preserving particle system.
+    Simple GPU based state-preserving particle system.
 */
 class ParticleModule : public ModuleRenderer
 {
 public:
-	typedef ModuleRenderer Super;
+    typedef ModuleRenderer Super;
 
-	ParticleModule();
+    ParticleModule();
 
-	bool init();
+    bool init();
 
-	void setForceTexture( int texid ) { m_ps.setForceTexture(texid); }
+    void setForceTexture( int texid ) { m_ps.setForceTexture(texid); }
 
-	///@name ModuleRenderer implementation
-	///@{
-	void render();
-	int  target() const { return m_target.name(); }
-	void destroy() { m_ps.destroy(); }
-	void touch();
-	void applyOptions() { /* Call init again to change texture size */ init(); }
-	///@}
+    ///@name ModuleRenderer implementation
+    ///@{
+    void render();
+    int  target() const { return m_target.name(); }
+    void destroy() { m_ps.destroy(); }
+    void touch();
+    void applyOptions() { /* Call init again to change texture size */ init(); }
+    ///@}
 
-	///@name ModuleRenderer channels implementation
-	///@{
-	void setChannel( int idx, int texId );
-	int  channel( int idx ) const;
-	int  numChannels() const { return 2; }
-	///@}
-	
-	/// @name Serialization
-	///@{
-	PropertyTree& serialize() const;
-	void deserialize( Serializable::PropertyTree& pt );
-	///@}
-	
+    ///@name ModuleRenderer channels implementation
+    ///@{
+    void setChannel( int idx, int texId );
+    int  channel( int idx ) const;
+    int  numChannels() const { return 2; }
+    ///@}
+    
+    /// @name Serialization
+    ///@{
+    PropertyTree& serialize() const;
+    void deserialize( Serializable::PropertyTree& pt );
+    ///@}
+    
 private:
-	bool            m_initialized;
-	// Some initialization has only to be done once
-	bool            m_target_initialized;
-	bool            m_r2t_initialized;
-	bool            m_ps_initialized;
+    bool            m_initialized;
+    // Some initialization has only to be done once
+    bool            m_target_initialized;
+    bool            m_r2t_initialized;
+    bool            m_ps_initialized;
 
-	bool            m_update;
-	GLTexture       m_target;
-	RenderToTexture m_r2t;
-	ParticleSystem  m_ps;
+    bool            m_update;
+    GLTexture       m_target;
+    RenderToTexture m_r2t;
+    ParticleSystem  m_ps;
 
-	/// Live parameters
-	struct Params {
-		DoubleParameter pointSize;
+    /// Live parameters
+    struct Params {
+        DoubleParameter pointSize;
         EnumParameter blendMode;
         DoubleParameter fraction;
         EnumParameter animation;
         DoubleParameter animSpeed;
         DoubleParameter timestep;
-		Params()
+        Params()
         : pointSize("PointSize"),
           blendMode("BlendMode","None","Alpha","Over"),
           fraction("Fraction"),
           animation("Animation","Static","In","Out"),
           animSpeed("AnimSpeed"),
           timestep("Timestep")
-		{
-			pointSize.setValueAndDefault( 1.5 );
-			pointSize.setLimits( 0.1, 50.0 );
+        {
+            pointSize.setValueAndDefault( 1.5 );
+            pointSize.setLimits( 0.1, 50.0 );
             blendMode.setValue( 1 );
             fraction.setValueAndDefault( 1.0 );
             fraction.setLimits( 0.0, 1.0 );
@@ -88,25 +88,25 @@ private:
             animSpeed.setLimits( 0.0, 100.0 );
             timestep.setValueAndDefault( 0.15 ); // 100* original dt
             timestep.setLimits( 0.001, 10.0 );
-		}
-	};
-	Params m_params;
+        }
+    };
+    Params m_params;
 
-	/// Setup options
-	struct Opts
-	{
-		IntParameter width, height;
-		Opts() 
-		: width("targetWidth"),
-		  height("targetHeight")
-		{
-			width.setValueAndDefault( 1024 );
-			width.setLimits( 1, 2048 );
-			height.setValueAndDefault( 1024 );
-			height.setLimits( 1, 2048 );
-		}
-	};
-	Opts m_opts;
+    /// Setup options
+    struct Opts
+    {
+        IntParameter width, height;
+        Opts() 
+        : width("targetWidth"),
+          height("targetHeight")
+        {
+            width.setValueAndDefault( 1024 );
+            width.setLimits( 1, 2048 );
+            height.setValueAndDefault( 1024 );
+            height.setLimits( 1, 2048 );
+        }
+    };
+    Opts m_opts;
 };
 
 

@@ -6,19 +6,19 @@ class ParticleModule;
 
 class ParticleModuleWidget : public ModuleWidget
 {
-	Q_OBJECT
-	
+    Q_OBJECT
+    
 public:
-	ParticleModuleWidget( QWidget* parent=0 );
+    ParticleModuleWidget( QWidget* parent=0 );
 
 protected:
-	/// ModuleWidget implementation
-	bool setModuleInternal( ModuleBase* master );
+    /// ModuleWidget implementation
+    bool setModuleInternal( ModuleBase* master );
 
-	void setupGUI();
+    void setupGUI();
 
-private:	
-	ParticleModule* m_particleModule;
+private:    
+    ParticleModule* m_particleModule;
 };
 
 #endif // PARTICLEMODULEWIDGET_H

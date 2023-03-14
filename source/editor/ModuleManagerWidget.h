@@ -14,40 +14,40 @@ class ModuleRenderer;
 class ModuleBase;
 
 /**
-	\class ModuleManagerWidget
-	
-	User interface for \a ModuleManager.
+    \class ModuleManagerWidget
+    
+    User interface for \a ModuleManager.
 */
 class ModuleManagerWidget : public QWidget
 {
 Q_OBJECT
 
 signals:
-	void moduleNameChanged( int idx );
-	void moduleChanged( ModuleRenderer* mod );
-	void moduleChanged( ModuleBase* mod );
-	
+    void moduleNameChanged( int idx );
+    void moduleChanged( ModuleRenderer* mod );
+    void moduleChanged( ModuleBase* mod );
+    
 public:
-	ModuleManagerWidget( QWidget* parent=0 );
+    ModuleManagerWidget( QWidget* parent=0 );
 
-	void setModuleManager( ModuleManager* mm );
-	ModuleManager* getModuleManager() { return m_master; }
+    void setModuleManager( ModuleManager* mm );
+    ModuleManager* getModuleManager() { return m_master; }
 
-	int getActiveModuleIndex() { return m_activeRow; }
-	
+    int getActiveModuleIndex() { return m_activeRow; }
+    
 public slots:
-	void updateModuleTable();
-	void setActiveModule( ModuleRenderer* m );
+    void updateModuleTable();
+    void setActiveModule( ModuleRenderer* m );
 
 protected slots:
-	void onSelectionChanged(const QItemSelection&,const QItemSelection&);
-	void onItemChanged( QStandardItem* );
+    void onSelectionChanged(const QItemSelection&,const QItemSelection&);
+    void onItemChanged( QStandardItem* );
 
 private:
-	ModuleManager*         m_master;
-	QStandardItemModel*    m_model;
-	QTableView*            m_tableView;
-	int m_activeRow;
+    ModuleManager*         m_master;
+    QStandardItemModel*    m_model;
+    QTableView*            m_tableView;
+    int m_activeRow;
 };
 
 #endif // MODULEMANAGERWIDGET_H

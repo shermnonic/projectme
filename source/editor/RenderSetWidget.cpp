@@ -141,7 +141,7 @@ void RenderSetWidget::initializeGL()
 void RenderSetWidget::resizeGL( int w, int h )
 {
     //if( m_rotScreen % 2 == 1 )
-    //	std::swap( w, h );
+    //  std::swap( w, h );
 
     // Set some default projection matrix. 
     // Note that this may be overidden in the render() call!
@@ -162,7 +162,7 @@ void RenderSetWidget::resizeGL( int w, int h )
 
 //-----------------------------------------------------------------------------
 void RenderSetWidget::paintGL()
-{	
+{   
     glClearColor( 0,0,0,1 );
     glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
@@ -205,7 +205,7 @@ void RenderSetWidget::toggleFullscreen( bool enabled )
     show();
 #else
     setWindowState( windowState() ^ Qt::WindowFullScreen );
-#endif	
+#endif  
     m_fullscreen = enabled;
 }
 
@@ -229,7 +229,7 @@ QPointF RenderSetWidget::normalizedCoordinates( QPointF pos )
 
 //-----------------------------------------------------------------------------
 void RenderSetWidget::mousePressEvent( QMouseEvent* e )
-{		
+{       
     QGLWidget::mouseMoveEvent( e );
     if( e->isAccepted() )
         return;
@@ -274,7 +274,7 @@ void RenderSetWidget::mousePressEvent( QMouseEvent* e )
 
 //-----------------------------------------------------------------------------
 void RenderSetWidget::mouseMoveEvent( QMouseEvent* e )
-{		
+{       
     QGLWidget::mouseMoveEvent( e );
     if( e->isAccepted() )
         return;
@@ -287,7 +287,7 @@ void RenderSetWidget::mouseMoveEvent( QMouseEvent* e )
     m_cursorPos = pt;
     
     if( m_state == PickedVertexState )
-    {	
+    {   
         // Handle area editing interaction
         pt -= m_delta;
         if( e->buttons() & Qt::LeftButton )
@@ -309,7 +309,7 @@ void RenderSetWidget::mouseMoveEvent( QMouseEvent* e )
 
 //-----------------------------------------------------------------------------
 void RenderSetWidget::mouseReleaseEvent( QMouseEvent* e )
-{	
+{   
     QGLWidget::mouseMoveEvent( e );
     if( e->isAccepted() )
         return;

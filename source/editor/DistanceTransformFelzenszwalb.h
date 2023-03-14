@@ -76,7 +76,7 @@ static void dt(float *im,int width,int height) {
     }
     float *d = dt(f, height);
     for (int y = 0; y < height; y++) {
-	  im[y*width+x] = d[y];
+      im[y*width+x] = d[y];
     }
     delete [] d;
   }
@@ -101,19 +101,19 @@ template<typename InputType>
 float* dt( InputType* im,int width,int height, InputType on )
 {
   float* out = new float[width*height];
-	
+    
   for (int y = 0; y < height; y++) {
     for (int x = 0; x < width; x++) {
       if (im[y*width+x] == on)
-	out[y*width+x] = 0;
+    out[y*width+x] = 0;
       else
-	out[y*width+x] = INF;
+    out[y*width+x] = INF;
     }
   }
   
   dt(out,width,height);
   
-  return out;	
+  return out;   
 }
 
 } // namespace DistanceTransformFelzenszwalb

@@ -35,123 +35,123 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 #include "qneconnection.h"
 
 QNEPort::QNEPort(QGraphicsItem *parent, QGraphicsScene *scene):
-	QGraphicsPathItem(parent) //, scene)
+    QGraphicsPathItem(parent) //, scene)
 {
-	label = new QGraphicsTextItem(this);
+    label = new QGraphicsTextItem(this);
 
-	radius_ = 5;
-	margin = 2;
+    radius_ = 5;
+    margin = 2;
 
-	QPainterPath p;
-	p.addEllipse(-radius_, -radius_, 2*radius_, 2*radius_);
-	setPath(p);
+    QPainterPath p;
+    p.addEllipse(-radius_, -radius_, 2*radius_, 2*radius_);
+    setPath(p);
 
     setPen( QPen(qApp->palette().color(QPalette::Link).darker()) );
     setBrush( qApp->palette().color(QPalette::Link) );
     //setPen(QPen(Qt::darkRed));
     //setBrush(Qt::red);
 
-	setFlag(QGraphicsItem::ItemSendsScenePositionChanges);
+    setFlag(QGraphicsItem::ItemSendsScenePositionChanges);
 
-	m_portFlags = 0;
-	m_maxAllowedConnections = -1;
+    m_portFlags = 0;
+    m_maxAllowedConnections = -1;
 }
 
 QNEPort::~QNEPort()
 {
-	foreach(QNEConnection *conn, m_connections)
-		delete conn;
+    foreach(QNEConnection *conn, m_connections)
+        delete conn;
 }
 
 void QNEPort::setNEBlock(QNEBlock *b)
 {
-	m_block = b;
+    m_block = b;
 }
 
 void QNEPort::setName(const QString &n)
 {
-	name = n;
-	label->setPlainText(n);
+    name = n;
+    label->setPlainText(n);
 }
 
 void QNEPort::setIsOutput(bool o)
 {
-	isOutput_ = o;
+    isOutput_ = o;
 
-	if (isOutput_)
-		label->setPos(-radius_ - margin - label->boundingRect().width(), -label->boundingRect().height()/2);
-	else
-		label->setPos(radius_ + margin, -label->boundingRect().height()/2);
+    if (isOutput_)
+        label->setPos(-radius_ - margin - label->boundingRect().width(), -label->boundingRect().height()/2);
+    else
+        label->setPos(radius_ + margin, -label->boundingRect().height()/2);
 }
 
 int QNEPort::radius()
 {
-	return radius_;
+    return radius_;
 }
 
 bool QNEPort::isOutput()
 {
-	return isOutput_;
+    return isOutput_;
 }
 
 QVector<QNEConnection*>& QNEPort::connections()
 {
-	return m_connections;
+    return m_connections;
 }
 
 void QNEPort::setPortFlags(int f)
 {
-	m_portFlags = f;
-	if (!scene()) return;
+    m_portFlags = f;
+    if (!scene()) return;
 
-	if (m_portFlags & TypePort)
-	{
-		QFont font(scene()->font());
-		font.setItalic(true);
-		label->setFont(font);
-		setPath(QPainterPath());
-	} else if (m_portFlags & NamePort)
-	{
-		QFont font(scene()->font());
-		font.setBold(true);
-		label->setFont(font);
-		setPath(QPainterPath());
-	}
+    if (m_portFlags & TypePort)
+    {
+        QFont font(scene()->font());
+        font.setItalic(true);
+        label->setFont(font);
+        setPath(QPainterPath());
+    } else if (m_portFlags & NamePort)
+    {
+        QFont font(scene()->font());
+        font.setBold(true);
+        label->setFont(font);
+        setPath(QPainterPath());
+    }
 }
 
 QNEBlock* QNEPort::block() const
 {
-	return m_block;
+    return m_block;
 }
 
 quint64 QNEPort::ptr()
 {
-	return m_ptr;
+    return m_ptr;
 }
 
 void QNEPort::setPtr(quint64 p)
 {
-	m_ptr = p;
+    m_ptr = p;
 }
 
 bool QNEPort::isConnected(QNEPort *other)
 {
-	foreach(QNEConnection *conn, m_connections)
-		if (conn->port1() == other || conn->port2() == other)
-			return true;
+    foreach(QNEConnection *conn, m_connections)
+        if (conn->port1() == other || conn->port2() == other)
+            return true;
 
-	return false;
+    return false;
 }
 
 QVariant QNEPort::itemChange(GraphicsItemChange change, const QVariant &value)
 {
-	if (change == ItemScenePositionHasChanged)
-	{
-		foreach(QNEConnection *conn, m_connections)
-		{
-			conn->updatePosFromPorts();
-			conn->updatePath();
-		}
-	}
-	return value;
+    if (change == ItemScenePositionHasChanged)
+    {
+        foreach(QNEConnection *conn, m_connections)
+        {
+            conn->updatePosFromPorts();
+            conn->updatePath();
+        }
+    }
+    return value;
 }

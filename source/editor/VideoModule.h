@@ -11,35 +11,35 @@ using GL::GLTexture;
 class VideoPlayer;
 
 /**
-	\class VideoModule
-	
-	Provides video playback (no audio), requires a pointer to the VideoPlayer instance.
+    \class VideoModule
+    
+    Provides video playback (no audio), requires a pointer to the VideoPlayer instance.
 */
 class VideoModule : public ModuleRenderer
 {
 public:
-	VideoModule();
+    VideoModule();
 
-	void setVideoPlayer( VideoPlayer* );
+    void setVideoPlayer( VideoPlayer* );
 
-	///@name ModuleRenderer implementation
-	///@{
-	void render();
-	int  target() const { return m_target.name(); }	
-	void destroy();
-	void touch() {}
-	void applyOptions() { /* Call init again to change texture size */ init(); }
-	///@}	
-	
+    ///@name ModuleRenderer implementation
+    ///@{
+    void render();
+    int  target() const { return m_target.name(); } 
+    void destroy();
+    void touch() {}
+    void applyOptions() { /* Call init again to change texture size */ init(); }
+    ///@}   
+    
 protected:
-	// Invoked once in first render() call
-	// Creates OpenGL texture
-	bool init();
+    // Invoked once in first render() call
+    // Creates OpenGL texture
+    bool init();
 
 private:
-	bool         m_initialized;
-	VideoPlayer* m_videoPlayer;
-	GLTexture    m_target;
+    bool         m_initialized;
+    VideoPlayer* m_videoPlayer;
+    GLTexture    m_target;
 };
 
 #endif // VIDEOMODULE_H

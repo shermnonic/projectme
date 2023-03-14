@@ -59,11 +59,11 @@ public:
     /// @brief parameters must be parented
     Parameters(QObject* parent) : QObject(parent){}
 
-	void clear() 
-	{ 
-		//qDeleteAll( _list.begin(), _list.end() );
-		_list.clear(); 
-	}
+    void clear() 
+    { 
+        //qDeleteAll( _list.begin(), _list.end() );
+        _list.clear(); 
+    }
     
     /// @brief asks every parameter to read values from its GUI
     void collect_gui(){
@@ -122,21 +122,21 @@ public:
         form->setFieldGrowthPolicy(QFormLayout::ExpandingFieldsGrow);
     }
 
-	void clear(){
-		if( !pars ) return; // Sanity
-		
-		// Delete form row contents (not tested for groups!)
-		// See http://stackoverflow.com/questions/13839952/how-to-simply-delete-row-in-qformlayout-programatically
+    void clear(){
+        if( !pars ) return; // Sanity
+        
+        // Delete form row contents (not tested for groups!)
+        // See http://stackoverflow.com/questions/13839952/how-to-simply-delete-row-in-qformlayout-programatically
         foreach(Parameter* par, pars->_list){            
             if(!par->label().isEmpty()) {
-				form->labelForField( par->widget() )->deleteLater();
-				par->widget()->deleteLater();
-			}
+                form->labelForField( par->widget() )->deleteLater();
+                par->widget()->deleteLater();
+            }
             else
                 par->widget()->deleteLater();   
         }
-		form->update();
-	}
+        form->update();
+    }
 
     void load_parameters(Parameters& pars){
         this->pars = &pars;
@@ -315,8 +315,8 @@ public:
     }
 public:
     IntegerSpinEdit& setRange(int min, int max){ 
-        widget()->setRange(min, max);		
-		widget()->setValue( value() );
+        widget()->setRange(min, max);       
+        widget()->setValue( value() );
         /// @todo value() to fit criteria above
         // collect_gui() ///< not working!!
         return *this; 
@@ -461,14 +461,14 @@ public:
 public:
     DoubleSpinEdit& setRange(double min, double max){ 
         widget()->setRange(min, max); 
-		widget()->setValue( value() );
+        widget()->setValue( value() );
         /// @todo value() to fit criteria above
         // collect_gui() ///< not working!!
         return *this; 
     }
     DoubleSpinEdit& setDecimals(int prec){ 
         widget()->setDecimals(prec); 
-		widget()->setValue( value() );
+        widget()->setValue( value() );
         return *this; 
     }
     DoubleSpinEdit& setSingleStep(double val){ 
@@ -505,14 +505,14 @@ public:
         return (*this);
     }
 public:
-	EnumCombobox& setItems( const QStringList& texts ){
-		widget()->clear();
-		widget()->addItems( texts );
-		widget()->setCurrentIndex( value() );
+    EnumCombobox& setItems( const QStringList& texts ){
+        widget()->clear();
+        widget()->addItems( texts );
+        widget()->setCurrentIndex( value() );
         /// @todo value() to fit criteria above
         // collect_gui() ///< not working!!
-		return *this;
-	}
+        return *this;
+    }
 private:
     EnumCombobox(int& value, QString label) : Super(value, label){
         update_gui();

@@ -6,23 +6,23 @@ class SoundInput;
 
 class SoundInputWidget : public QWidget
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	SoundInputWidget( QWidget* parent=0 );
+    SoundInputWidget( QWidget* parent=0 );
 
 public slots:
-	void setSoundInput( SoundInput* master );
+    void setSoundInput( SoundInput* master );
 
 protected slots:
-	void openSoundFile();
-	void openSoundInput();
+    void openSoundFile();
+    void openSoundInput();
 
-	void restart();
-	void play( bool toggle );
+    void restart();
+    void play( bool toggle );
 
 private:
-	SoundInput* m_master;
+    SoundInput* m_master;
 };
 
 #endif // SOUNDINPUTWIDGET_H

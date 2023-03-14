@@ -75,7 +75,7 @@
      QTextCharFormat multiLineCommentFormat;
      QTextCharFormat quotationFormat;
      QTextCharFormat functionFormat;
-	 QTextCharFormat macroFormat;
+     QTextCharFormat macroFormat;
  };
 
  #endif

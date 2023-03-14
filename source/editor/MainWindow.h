@@ -39,118 +39,118 @@ class SoundInput;
 //  SharedGLContext
 //=============================================================================
 /**
-	\class SharedGLContextWidget
-	- Provide OpenGL context shared between previews and screens.
-	- Setup GL extension manager GLEW in initializeGL().
-	- Frequent update of RenderModule's of a ModuleManager in paintGL().
+    \class SharedGLContextWidget
+    - Provide OpenGL context shared between previews and screens.
+    - Setup GL extension manager GLEW in initializeGL().
+    - Frequent update of RenderModule's of a ModuleManager in paintGL().
 */
 class SharedGLContextWidget : public QGLWidget
 {
-	Q_OBJECT
+    Q_OBJECT
 public:
-	SharedGLContextWidget( QWidget* parent );
+    SharedGLContextWidget( QWidget* parent );
 
-	void setModuleManager( ModuleManager* man ) { m_man = man; }
+    void setModuleManager( ModuleManager* man ) { m_man = man; }
 
-	void setRenderUpdateEnabled( bool b );
+    void setRenderUpdateEnabled( bool b );
 
 protected:
-	///@name QGLWidget implementation
-	///@{ 
-	void initializeGL();
+    ///@name QGLWidget implementation
+    ///@{ 
+    void initializeGL();
     void resizeGL( int /*w*/, int /*h*/ ) {}
-	void paintGL();
-	QTimer* m_renderUpdateTimer;
-	///@}
+    void paintGL();
+    QTimer* m_renderUpdateTimer;
+    ///@}
 
 private:
-	ModuleManager* m_man;
+    ModuleManager* m_man;
 };
 
 //=============================================================================
 //  MainWindow
 //=============================================================================
 /**
-	\class MainWindow
+    \class MainWindow
 
-	ProjectMe application main window, owns a ProjectMe instance.
+    ProjectMe application main window, owns a ProjectMe instance.
 */
 class MainWindow : public QMainWindow
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	MainWindow();
-	~MainWindow();
+    MainWindow();
+    ~MainWindow();
 
 public slots:
-	void open();
-	void save();
-	void clear();
-	
-	void openStyleSheet();
+    void open();
+    void save();
+    void clear();
+    
+    void openStyleSheet();
 
 private slots:
-	void destroy();
+    void destroy();
 
-	void closeTab( int index );
+    void closeTab( int index );
 
-	void newPreview();
-	void newScreen();
-	void updateViewMenu();
+    void newPreview();
+    void newScreen();
+    void updateViewMenu();
 
-	void updateTables();	
-	void updateProject(); // Also calls updateTables()
+    void updateTables();    
+    void updateProject(); // Also calls updateTables()
 
-	void loadShader();
-	void reloadShader();
-	void editShader();
+    void loadShader();
+    void reloadShader();
+    void editShader();
 
-	void createModule( int typeId );
-	void customModuleInit();
-	void customModuleInit( ModuleBase* m );
-	void newArea();
+    void createModule( int typeId );
+    void customModuleInit();
+    void customModuleInit( ModuleBase* m );
+    void newArea();
 
-	void forceRender();
+    void forceRender();
 
 protected:
-	void createUI();
+    void createUI();
 
-	void initialize();
+    void initialize();
 
-	void closeEvent( QCloseEvent* event );
+    void closeEvent( QCloseEvent* event );
 
-	///@{ Application settings
-	void readSettings();
+    ///@{ Application settings
+    void readSettings();
     void writeSettings();
-	QString m_baseDir; ///< directory of last successfully opened file
-	///@}
-	
-	ModuleBase* getActiveModule();
+    QString m_baseDir; ///< directory of last successfully opened file
+    ///@}
+    
+    ModuleBase* getActiveModule();
 
 private:
-	QTabWidget      *m_mainTabWidget;
-	SharedGLContextWidget
-	                *m_sharedGLWidget;
+    QTabWidget      *m_mainTabWidget;
+    SharedGLContextWidget
+                    *m_sharedGLWidget;
 
-	QString          m_shaderFilename;
-	
-	QMenu* m_menuView;
+    QString          m_shaderFilename;
+    
+    QMenu* m_menuView;
 
-	QList<RenderSetWidget*> m_previews;
-	QList<RenderSetWidget*> m_screens;
+    QList<RenderSetWidget*> m_previews;
+    QList<RenderSetWidget*> m_screens;
 
-	ProjectMe m_projectMe;
+    ProjectMe m_projectMe;
 
-	ModuleManagerWidget*  m_moduleWidget;
-	MapperWidget*         m_mapperWidget;
-	ModuleRendererWidget* m_moduleRendererWidget;
-	ModuleParameterWidget*m_moduleParameterWidget;
-	NodeEditorWidget*     m_nodeEditorWidget;
+    ModuleManagerWidget*  m_moduleWidget;
+    MapperWidget*         m_mapperWidget;
+    ModuleRendererWidget* m_moduleRendererWidget;
+    ModuleParameterWidget*m_moduleParameterWidget;
+    NodeEditorWidget*     m_nodeEditorWidget;
 
 #ifndef PROJECTME_BASS_DISABLED
-	SoundInput m_soundInput;
-	SoundInputWidget*     m_soundInputWidget;
+    SoundInput m_soundInput;
+    SoundInputWidget*     m_soundInputWidget;
 #endif
 
 #ifdef USE_LIBVLC

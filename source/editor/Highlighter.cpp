@@ -50,9 +50,9 @@ Highlighter::Highlighter(QTextDocument *parent)
      keywordFormat.setForeground(Qt::darkBlue);
      keywordFormat.setFontWeight(QFont::Bold);
      QStringList keywordPatterns;
-	 // C++
+     // C++
      keywordPatterns << "\\bchar\\b" << "\\bclass\\b" << "\\bconst\\b"
-		             << "\\bfloat\\b"
+                     << "\\bfloat\\b"
                      << "\\bdouble\\b" << "\\benum\\b" << "\\bexplicit\\b"
                      << "\\bfriend\\b" << "\\binline\\b" << "\\bint\\b"
                      << "\\blong\\b" << "\\bnamespace\\b" << "\\boperator\\b"
@@ -62,16 +62,16 @@ Highlighter::Highlighter(QTextDocument *parent)
                      << "\\btemplate\\b" << "\\btypedef\\b" << "\\btypename\\b"
                      << "\\bunion\\b" << "\\bunsigned\\b" << "\\bvirtual\\b"
                      << "\\bvoid\\b" << "\\bvolatile\\b"
-					 << "\\breturn\\b";
-	 // GLSL
-	 keywordPatterns << "\\buniform\\b" << "\\bvarying\\b"
-		             << "\\bvec2\\b" << "\\bvec3\\b" << "\\bvec4\\b"
-					 << "\\bmat2\\b" << "\\bmat3\\b" << "\\bmat4\\b"
-					 << "\\bgl_FragCoord\\b" << "\\bgl_FragColor\\b"
-					 << "\\bsampler2D\\b" << "\\btexture2D\\b"
-					 << "\\bdiscard\\b";
+                     << "\\breturn\\b";
+     // GLSL
+     keywordPatterns << "\\buniform\\b" << "\\bvarying\\b"
+                     << "\\bvec2\\b" << "\\bvec3\\b" << "\\bvec4\\b"
+                     << "\\bmat2\\b" << "\\bmat3\\b" << "\\bmat4\\b"
+                     << "\\bgl_FragCoord\\b" << "\\bgl_FragColor\\b"
+                     << "\\bsampler2D\\b" << "\\btexture2D\\b"
+                     << "\\bdiscard\\b";
      
-	 foreach (const QString &pattern, keywordPatterns) {
+     foreach (const QString &pattern, keywordPatterns) {
          rule.pattern = QRegExp(pattern);
          rule.format = keywordFormat;
          highlightingRules.append(rule);
@@ -83,7 +83,7 @@ Highlighter::Highlighter(QTextDocument *parent)
      rule.format = classFormat;
      highlightingRules.append(rule);
 
-	 singleLineCommentFormat.setForeground(Qt::darkGreen);
+     singleLineCommentFormat.setForeground(Qt::darkGreen);
      rule.pattern = QRegExp("//[^\n]*");
      rule.format = singleLineCommentFormat;
      highlightingRules.append(rule);
@@ -104,10 +104,10 @@ Highlighter::Highlighter(QTextDocument *parent)
      commentStartExpression = QRegExp("/\\*");
      commentEndExpression = QRegExp("\\*/");
 
-	 macroFormat.setForeground(Qt::darkRed);
-	 rule.pattern = QRegExp("#[^\n]*");
-	 rule.format = macroFormat;
-	 highlightingRules.append( rule );
+     macroFormat.setForeground(Qt::darkRed);
+     rule.pattern = QRegExp("#[^\n]*");
+     rule.format = macroFormat;
+     highlightingRules.append( rule );
  }
 
  void Highlighter::highlightBlock(const QString &text)

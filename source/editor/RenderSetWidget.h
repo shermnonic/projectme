@@ -45,7 +45,7 @@ public:
     RenderSetWidget( QWidget *parent, QGLWidget *share );
 
     /// Set RenderSet, pointer must stay valid while it is assigned here!
-    void setRenderSet( RenderSet* set ) { m_set = set; }	
+    void setRenderSet( RenderSet* set ) { m_set = set; }    
 
     void setRenderUpdateEnabled( bool b );
 

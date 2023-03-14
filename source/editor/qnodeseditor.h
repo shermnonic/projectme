@@ -36,34 +36,34 @@ class QNEBlock;
 
 class QNodesEditor : public QObject
 {
-	Q_OBJECT
+    Q_OBJECT
 
 signals:
-	void nodeDeleted( QNEBlock* );
-	void connectionDeleted( QNEConnection* );
-	void connectionCreated( QNEConnection* );
+    void nodeDeleted( QNEBlock* );
+    void connectionDeleted( QNEConnection* );
+    void connectionCreated( QNEConnection* );
 
 public:
-	explicit QNodesEditor(QObject *parent = 0);
+    explicit QNodesEditor(QObject *parent = 0);
 
-	void install(QGraphicsScene *scene);
+    void install(QGraphicsScene *scene);
 
-	bool eventFilter(QObject *, QEvent *);
+    bool eventFilter(QObject *, QEvent *);
 
-	void save(QDataStream &ds);
-	void load(QDataStream &ds);
+    void save(QDataStream &ds);
+    void load(QDataStream &ds);
 
-	// WORKAROUND
-	void eraseConnections();
-	void clear();
-
-private:
-	QGraphicsItem *itemAt(const QPointF&);
+    // WORKAROUND
+    void eraseConnections();
+    void clear();
 
 private:
-	QGraphicsScene *scene;
-	QNEConnection *conn;
-	// QNEBlock *selBlock;
+    QGraphicsItem *itemAt(const QPointF&);
+
+private:
+    QGraphicsScene *scene;
+    QNEConnection *conn;
+    // QNEBlock *selBlock;
 };
 
 #endif // QNODESEDITOR_H

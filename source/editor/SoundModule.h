@@ -11,39 +11,39 @@ using GL::GLTexture;
 class SoundInput;
 
 /**
-	\class SoundModule
-	
-	Provides audio waveform and FFT, requires a pointer to a SoundInput instance.
+    \class SoundModule
+    
+    Provides audio waveform and FFT, requires a pointer to a SoundInput instance.
 */
 class SoundModule : public ModuleRenderer
 {
 public:
-	SoundModule();
+    SoundModule();
 
-	void setSoundInput( SoundInput* );
+    void setSoundInput( SoundInput* );
 
-	///@name ModuleRenderer implementation
-	///@{
-	void render();
-	int  target() const { return m_target.name(); }	
-	void destroy();
-	void touch() {}
-	void applyOptions() { /* Call init again to change texture size */ init(); }
-	///@}	
-	
+    ///@name ModuleRenderer implementation
+    ///@{
+    void render();
+    int  target() const { return m_target.name(); } 
+    void destroy();
+    void touch() {}
+    void applyOptions() { /* Call init again to change texture size */ init(); }
+    ///@}   
+    
 protected:
-	// Invoked once in first render() call
-	// Creates OpenGL texture
-	bool init();
+    // Invoked once in first render() call
+    // Creates OpenGL texture
+    bool init();
 
-	// Uploads data to texture. Called in render().
-	void updateTexture();
+    // Uploads data to texture. Called in render().
+    void updateTexture();
 
 private:
-	bool        m_initialized;
-	SoundInput*	m_soundInput;
-	GLTexture   m_target;
-	float       m_data[2*512]; // Texture data
+    bool        m_initialized;
+    SoundInput* m_soundInput;
+    GLTexture   m_target;
+    float       m_data[2*512]; // Texture data
 };
 
 #endif // SOUNDMODULE_H
