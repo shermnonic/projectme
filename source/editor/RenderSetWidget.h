@@ -19,75 +19,79 @@ class QTimer;
 class QAction;
 
 /**
-	\class RenderSetWidget
+    \class RenderSetWidget
 
-	- Responsible for visualization and editing of a RenderSet.
-	- Does *not* own the RenderSet but only a pointer to one.
+    - Responsible for visualization and editing of a RenderSet.
+    - Does *not* own the RenderSet but only a pointer to one.
 */
 class RenderSetWidget : public QGLWidget
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	enum InteractionState { 
-		EditVertexState,
-		PickedVertexState, 
+    enum InteractionState { 
+        EditVertexState,
+        PickedVertexState, 
         PaintMaskState
-	};
+    };
 
-	enum RenderFlags {
-		RenderPreview = 1,
-		RenderFinal   = 2,
-		RenderGrid    = 4
-	};
-	
-	/// C'tor
-	RenderSetWidget( QWidget *parent, QGLWidget *share );
+    enum RenderFlags {
+        RenderPreview = 1,
+        RenderFinal   = 2,
+        RenderGrid    = 4
+    };
+    
+    /// C'tor
+    RenderSetWidget( QWidget *parent, QGLWidget *share );
 
-	/// Set RenderSet, pointer must stay valid while it is assigned here!
-	void setRenderSet( RenderSet* set ) { m_set = set; }	
+    /// Set RenderSet, pointer must stay valid while it is assigned here!
+    void setRenderSet( RenderSet* set ) { m_set = set; }	
 
-	void setRenderUpdateEnabled( bool b );
+    void setRenderUpdateEnabled( bool b );
 
-	///@name Fullscreen
-	///@{
-	QAction* toggleFullscreenAction() { return m_actFullscreen; }
+    ///@name Fullscreen
+    ///@{
+    QAction* getToggleFullscreenAction() { return toggleFullscreenAction; }
 public slots:
-	void toggleFullscreen( bool enabled );
-	bool isFullscreen() const { return m_fullscreen; }
-	///@}
+    void toggleFullscreen( bool enabled );
+    bool isFullscreen() const { return m_fullscreen; }
+    ///@}
 
-	void showContextMenu( const QPoint& );
+    void showContextMenu( const QPoint& );
 
 protected:
-	///@name QGLWidget implementation
-	///@{ 
-	void initializeGL();
-	void resizeGL( int w, int h );
-	void paintGL();
-	QTimer* m_renderUpdateTimer;
-	///@}
+    ///@name QGLWidget implementation
+    ///@{ 
+    void initializeGL();
+    void resizeGL( int w, int h );
+    void paintGL();
+    QTimer* m_renderUpdateTimer;
+    ///@}
 
-	///@name Mouse events
-	///@{
-	QPointF normalizedCoordinates( QPointF pos );
-	virtual void mousePressEvent  ( QMouseEvent* e );
-	virtual void mouseReleaseEvent( QMouseEvent* e );
-	virtual void mouseMoveEvent   ( QMouseEvent* e );
+    ///@name Mouse events
+    ///@{
+    QPointF normalizedCoordinates( QPointF pos );
+    virtual void mousePressEvent  ( QMouseEvent* e );
+    virtual void mouseReleaseEvent( QMouseEvent* e );
+    virtual void mouseMoveEvent   ( QMouseEvent* e );
     virtual void wheelEvent( QWheelEvent* e );
-	///@}
+    ///@}
 
 private:
-	RenderSet* m_set;	
-	int        m_state;
-	int        m_flags;
-	QPointF    m_delta;
-	bool       m_fullscreen;
-	QAction*   m_actFullscreen;
-	FrameCounter m_fps;
+    RenderSet* m_set;	
+    int        m_state;
+    int        m_flags;
+    QPointF    m_delta;
+    bool       m_fullscreen;
+    FrameCounter m_fps;
     int        m_maskRadius;
-	QPointF    m_cursorPos;
-	int        m_rotScreen;
+    QPointF    m_cursorPos;
+    int        m_rotScreen;
+
+private:
+    QAction* toggleFullscreenAction;
+    QList<QAction*> maskActions;
+    QList<QAction*> renderActions;
 };
 
 #endif // RENDERSETWIDGET_H

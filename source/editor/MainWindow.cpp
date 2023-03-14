@@ -840,7 +840,7 @@ void MainWindow::updateViewMenu()
 
 	for( int i=0; i < m_screens.size(); i++ )	
 	{
-		QAction* a = m_screens.at(i)->toggleFullscreenAction();
+		QAction* a = m_screens.at(i)->getToggleFullscreenAction();
 		a->setText( tr("Toggle fullscreen for screen #%1").arg(i+1) );
 		m_menuView->addAction( a );
 	}
