@@ -78,7 +78,7 @@ protected:
     ///@}
 
 private:
-    RenderSet* m_set;	
+    RenderSet* m_set;
     int        m_state;
     int        m_flags;
     QPointF    m_delta;

@@ -88,24 +88,19 @@ RenderSetWidget::RenderSetWidget( QWidget *parent, QGLWidget *share )
         QAction* renderPreviewAction = new QAction(tr("Render preview"), this);
         QAction* renderFinalAction = new QAction(tr("Render final"), this);
         QAction* renderGridAction = new QAction(tr("Render grid"), this);
+        renderPreviewAction->setCheckable(true);
+        renderFinalAction->setCheckable(true);
+        renderGridAction->setCheckable(true);
 
-        auto updateCheckstate = [=]() {
-            const QSignalBlocker blockerA(renderPreviewAction);
-            const QSignalBlocker blockerB(renderFinalAction);
-            const QSignalBlocker blockerC(renderGridAction);
-            renderPreviewAction->setChecked(m_flags & RenderPreview);
-            renderFinalAction->setChecked(m_flags & RenderFinal);
-            renderGridAction->setChecked(m_flags & RenderFinal && m_flags & RenderGrid);
-            qDebug("(%d,%d,%d)", m_flags & RenderPreview, m_flags & RenderFinal, m_flags & RenderGrid);
-        };
-
-        updateCheckstate();
-
-        connect(this, &QWidget::customContextMenuRequested, this, [=](){ updateCheckstate(); });
-
-        connect(renderPreviewAction, &QAction::triggered, this, [=]() { m_flags = RenderPreview; updateCheckstate(); });
-        connect(renderFinalAction, &QAction::triggered, this, [=]() { m_flags = RenderFinal; updateCheckstate(); });
-        connect(renderGridAction, &QAction::triggered, this, [=]() { m_flags = RenderFinal | RenderGrid; updateCheckstate(); });
+        auto renderGroup = new QActionGroup(this);
+        renderGroup->addAction(renderPreviewAction);
+        renderGroup->addAction(renderFinalAction);
+        renderGroup->addAction(renderGridAction);
+        renderPreviewAction->setChecked(true);
+        
+        connect(renderPreviewAction, &QAction::triggered, this, [=]() { m_flags = RenderPreview; });
+        connect(renderFinalAction, &QAction::triggered, this, [=]() { m_flags = RenderFinal; });
+        connect(renderGridAction, &QAction::triggered, this, [=]() { m_flags = RenderFinal | RenderGrid; });
 
         renderActions.push_back(renderPreviewAction);
         renderActions.push_back(renderFinalAction);
