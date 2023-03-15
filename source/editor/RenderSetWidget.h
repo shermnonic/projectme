@@ -28,6 +28,9 @@ class RenderSetWidget : public QGLWidget
 {
     Q_OBJECT
 
+signals:
+    void closed();
+
 public:
     enum InteractionState { 
         EditVertexState,
@@ -43,9 +46,10 @@ public:
     
     /// C'tor
     RenderSetWidget( QWidget *parent, QGLWidget *share );
+    ~RenderSetWidget() { emit closed(); }
 
     /// Set RenderSet, pointer must stay valid while it is assigned here!
-    void setRenderSet( RenderSet* set ) { m_set = set; }    
+    void setRenderSet( RenderSet* set ) { m_set = set; }
 
     void setRenderUpdateEnabled( bool b );
 
@@ -62,19 +66,19 @@ public slots:
 protected:
     ///@name QGLWidget implementation
     ///@{ 
-    void initializeGL();
-    void resizeGL( int w, int h );
-    void paintGL();
+    void initializeGL() override;
+    void resizeGL( int w, int h ) override;
+    void paintGL() override;
     QTimer* m_renderUpdateTimer;
     ///@}
 
     ///@name Mouse events
     ///@{
     QPointF normalizedCoordinates( QPointF pos );
-    virtual void mousePressEvent  ( QMouseEvent* e );
-    virtual void mouseReleaseEvent( QMouseEvent* e );
-    virtual void mouseMoveEvent   ( QMouseEvent* e );
-    virtual void wheelEvent( QWheelEvent* e );
+    virtual void mousePressEvent  ( QMouseEvent* e ) override;
+    virtual void mouseReleaseEvent( QMouseEvent* e ) override;
+    virtual void mouseMoveEvent   ( QMouseEvent* e ) override;
+    virtual void wheelEvent( QWheelEvent* e ) override;
     ///@}
 
 private:

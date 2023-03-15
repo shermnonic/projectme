@@ -821,9 +821,10 @@ void MainWindow::newScreen()
     w->setWindowTitle("Screen #"+QString::number(screenCount++));
     w->show();
 
-    // FIXME: Remove widget from list m_screens on close!
-
+    qDebug("Add screen %p", (void*)w);
     m_screens.append( w );
+    connect(w, &RenderSetWidget::closed, this, [=]() { m_screens.removeAll(w); qDebug("Remove screen %p", (void*)w); });
+
     updateViewMenu();
 }
 
