@@ -109,7 +109,7 @@ SharedGLContextWidget::SharedGLContextWidget( QWidget* parent )
 
     // Render update timer
     m_renderUpdateTimer = new QTimer( this );
-    connect( m_renderUpdateTimer, SIGNAL(timeout()), this, SLOT(updateGL()) );
+    connect(m_renderUpdateTimer, &QTimer::timeout, this, &SharedGLContextWidget::updateGL);
     m_renderUpdateTimer->start( 42 ); // 16ms=60fps, 42ms=24fps
         // This is the "heart-beat" of the module system. No render module will
         // be updated faster than this rate. 
@@ -263,7 +263,7 @@ void MainWindow::createModule( int typeId )
         return;
     }
 
-    // Add to module manager    
+    // Add to module manager
     m_projectMe.moduleManager().addModule( dynamic_cast<ModuleRenderer*>(m) );
 
     // Custom init
@@ -271,10 +271,10 @@ void MainWindow::createModule( int typeId )
 
     // Update gui
     updateTables();
-    m_nodeEditorWidget->setProjectMe( &m_projectMe );   
+    m_nodeEditorWidget->setProjectMe( &m_projectMe );
 }
 
-void MainWindow::customModuleInit()
+void MainWindow::customModuleInitActiveModule()
 {
     customModuleInit( getActiveModule() );
 }
@@ -561,8 +561,8 @@ void MainWindow::createUI()
         // Menu entry
         menuModules->addAction( act );
         // Connection to signal mapper
-        connect( act, SIGNAL(triggered()), newModuleMapper, SLOT(map()) );
-        newModuleMapper->setMapping( act, i );
+        connect(act, &QAction::triggered, newModuleMapper, qOverload<>(&QSignalMapper::map));
+        newModuleMapper->setMapping(act, i);
     }
 
     menuAreas = menuBar()->addMenu( tr("Areas") );
@@ -570,35 +570,35 @@ void MainWindow::createUI()
 
     // --- connections ---
 
-    connect( actClear,SIGNAL(triggered()), this, SLOT(clear()) );
-    connect( actOpen, SIGNAL(triggered()), this, SLOT(open() ) );
-    connect( actSave, SIGNAL(triggered()), this, SLOT(save() ) );
-    connect( actQuit, SIGNAL(triggered()), this, SLOT(close()) );
+    connect(actClear,&QAction::triggered, this, &MainWindow::clear);
+    connect(actOpen, &QAction::triggered, this, &MainWindow::open);
+    connect(actSave, &QAction::triggered, this, &MainWindow::save);
+    connect(actQuit, &QAction::triggered, this, &MainWindow::close);
 
-    connect( actOpenStyleSheet, SIGNAL(triggered()), this, SLOT(openStyleSheet()) );
+    connect(actOpenStyleSheet, &QAction::triggered, this, &MainWindow::openStyleSheet);
 
-    connect( actNewPreview, SIGNAL(triggered()), this, SLOT(newPreview()) );
-    connect( actNewScreen,  SIGNAL(triggered()), this, SLOT(newScreen ()) );
+    connect(actNewPreview, &QAction::triggered, this, &MainWindow::newPreview);
+    connect(actNewScreen,  &QAction::triggered, this, &MainWindow::newScreen);
 
-    connect( actLoadShader,   SIGNAL(triggered()), this, SLOT(loadShader())   );
-    connect( actReloadShader, SIGNAL(triggered()), this, SLOT(reloadShader()) );
-    connect( actEditShader,   SIGNAL(triggered()), this, SLOT(editShader())   );
+    connect(actLoadShader,   &QAction::triggered, this, &MainWindow::loadShader);
+    connect(actReloadShader, &QAction::triggered, this, &MainWindow::reloadShader);
+    connect(actEditShader,   &QAction::triggered, this, &MainWindow::editShader);
 
-    connect( newModuleMapper, SIGNAL(mapped(int)), this, SLOT(createModule(int)) );
+    connect(newModuleMapper, &QSignalMapper::mappedInt, this, &MainWindow::createModule);
 
-    connect( m_moduleWidget, SIGNAL(moduleNameChanged(int)), m_mapperWidget, SLOT(updateTable()) );
-    connect( m_moduleWidget, SIGNAL(moduleNameChanged(int)), m_nodeEditorWidget, SLOT(updateNodes()) );
-    connect( m_moduleWidget, SIGNAL(moduleChanged(ModuleRenderer*)), m_moduleRendererWidget, SLOT(setModuleRenderer(ModuleRenderer*)) );
-    connect( m_moduleWidget, SIGNAL(moduleChanged(ModuleBase*)), m_moduleParameterWidget, SLOT(setModule(ModuleBase*)) );
+    connect(m_moduleWidget, &ModuleManagerWidget::moduleNameChanged, m_mapperWidget, [=](int){ m_mapperWidget->updateTable(); });
+    connect(m_moduleWidget, &ModuleManagerWidget::moduleNameChanged, m_nodeEditorWidget, [=](int){ m_nodeEditorWidget->updateNodes(); });
+    connect(m_moduleWidget, qOverload<ModuleRenderer*>(&ModuleManagerWidget::moduleChanged), m_moduleRendererWidget, &ModuleRendererWidget::setModuleRenderer);
+    connect(m_moduleWidget, qOverload<ModuleBase*>(&ModuleManagerWidget::moduleChanged), m_moduleParameterWidget, &ModuleParameterWidget::setModule);
 
-    connect( actNewArea, SIGNAL(triggered()), this, SLOT(newArea()) );
+    connect(actNewArea, &QAction::triggered, this, &MainWindow::newArea);
 
-    connect( actModuleInit, SIGNAL(triggered()), this, SLOT(customModuleInit()) );
+    connect(actModuleInit, &QAction::triggered, this, &MainWindow::customModuleInitActiveModule);
 
-    connect( m_nodeEditorWidget, SIGNAL(connectionChanged()), this, SLOT(updateTables()) );
-    connect( m_nodeEditorWidget, SIGNAL(selectionChanged(ModuleRenderer*)), m_moduleWidget, SLOT(setActiveModule(ModuleRenderer*)) );
+    connect(m_nodeEditorWidget, &NodeEditorWidget::connectionChanged, this, &MainWindow::updateTables);
+    connect(m_nodeEditorWidget, &NodeEditorWidget::selectionChanged, m_moduleWidget, &ModuleManagerWidget::setActiveModule);
 
-    connect( m_mainTabWidget, SIGNAL(tabCloseRequested(int)), this, SLOT(closeTab(int)) );
+    connect(m_mainTabWidget, &QTabWidget::tabCloseRequested, this, &MainWindow::closeTab);
 }
 
 void MainWindow::destroy()
@@ -660,7 +660,6 @@ void MainWindow::readSettings()
     m_baseDir = settings.value( "baseDir", QString("../data/") ).toString();
     restoreGeometry( settings.value("geometry")   .toByteArray() );
     restoreState   ( settings.value("windowState").toByteArray() );
-    // for dock widgets use restoreDockWidget( .. );
 }
 
 void MainWindow::openStyleSheet()
@@ -671,7 +670,7 @@ void MainWindow::openStyleSheet()
     if( filename.isEmpty() )
         return;
 
-    QFile f( filename );    
+    QFile f( filename );
     if( f.open(QIODevice::ReadOnly | QIODevice::Text) )
     {       
         qDebug() << "Setting style sheet" << filename;
@@ -696,7 +695,7 @@ void MainWindow::open()
 
     if( m_projectMe.deserializeFromDisk( filename.toStdString() ) )
     {
-        // success      
+        // success
         statusBar()->showMessage( tr("Sucessfully loaded %1").arg( filename ) );
     }
     else
@@ -788,7 +787,7 @@ void MainWindow::editShader()
         m_mainTabWidget->setCurrentIndex( idx );
         w->setShaderModule( sm );
         
-        connect( w, SIGNAL(shaderUpdated(ModuleBase*)), m_moduleParameterWidget, SLOT(setModule(ModuleBase*)) );
+        connect(w, &ShaderEditorWidget::shaderUpdated, m_moduleParameterWidget, &ModuleParameterWidget::setModule);
     }
 }
 
@@ -822,6 +821,8 @@ void MainWindow::newScreen()
     w->setWindowTitle("Screen #"+QString::number(screenCount++));
     w->show();
 
+    // FIXME: Remove widget from list m_screens on close!
+
     m_screens.append( w );
     updateViewMenu();
 }
@@ -838,7 +839,7 @@ void MainWindow::updateViewMenu()
 {
     m_menuView->clear();
 
-    for( int i=0; i < m_screens.size(); i++ )   
+    for( int i=0; i < m_screens.size(); i++ )
     {
         QAction* a = m_screens.at(i)->getToggleFullscreenAction();
         a->setText( tr("Toggle fullscreen for screen #%1").arg(i+1) );
@@ -897,6 +898,6 @@ void MainWindow::reloadShader()
     {
         // Just "touch" the module
         m_sharedGLWidget->makeCurrent();
-        mod->touch();       
+        mod->touch();
     }
 }

@@ -107,7 +107,7 @@ private slots:
     void editShader();
 
     void createModule( int typeId );
-    void customModuleInit();
+    void customModuleInitActiveModule();
     void customModuleInit( ModuleBase* m );
     void newArea();
 
