@@ -6,7 +6,6 @@ class FrameCounter
 {
 public:
     FrameCounter()
-    : m_initialized(false), m_numFrames(0), m_fps(0.f)
     {}
         
     float measure()
@@ -35,14 +34,14 @@ public:
                 m_numFrames = 0;
             }
         }       
-        return m_fps;       
+        return m_fps;
     }
     
 private:
-    bool m_initialized;
-    unsigned m_numFrames;
-    std::clock_t m_t0; // Last timepoint of measurement
-    float m_fps; // FPS estimate from last integrated measurement
+    bool m_initialized = false;
+    unsigned m_numFrames = 0;
+    std::clock_t m_t0 = {}; // Last timepoint of measurement
+    float m_fps = 0.f; // FPS estimate from last integrated measurement
 };
 
 #endif // FRAMECOUNTER_H

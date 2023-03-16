@@ -15,7 +15,7 @@ public:
     /// Connections emanate from the single target of a  ModuleRenderer.
     struct Source
     {           
-        ModuleRenderer* module;     
+        ModuleRenderer* module;
         Source(): module(0) {}
         Source(ModuleRenderer* m): module(m) {}
         bool valid() const { return module!=NULL; }
@@ -25,7 +25,7 @@ public:
     struct Destination
     {
         ModuleRenderer* module;
-        int             channel;        
+        int             channel;
         Destination(): module(0), channel(-1) {}
         Destination(ModuleRenderer* m, int ch)
             : module(m), channel(ch)
@@ -66,7 +66,7 @@ public:
 private:
     Source      m_src;
     Destination m_dst;
-    ProjectMe*  m_projectMe;
+    ProjectMe*  m_projectMe = nullptr;
 };
 
 #endif // CONNECTION_H
