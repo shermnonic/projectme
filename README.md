@@ -2,6 +2,8 @@
 
 Projection mapping of GLSL shaders to multiple quadrilaterals, from 2015.
 
+![Screenshot](projectme.png)
+
 ## Build
 
 Dependencies are configured via a [vcpkg](https://vcpkg.io/) manifest, see `source/vcpkg.json`.
