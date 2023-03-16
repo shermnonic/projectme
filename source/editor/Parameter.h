@@ -8,7 +8,6 @@
 //#include <map> // for factory
 #include <boost/property_tree/ptree.hpp> // for serialization
 #include <boost/optional.hpp>
-#include <boost/foreach.hpp>
 #include <cassert>
 
 typedef boost::property_tree::ptree PTree;
@@ -594,7 +593,7 @@ public:
         // Restore enum names
         int size = pt.get( "enumNames.size", 0 );
         m_enumNames.clear();
-        BOOST_FOREACH( const PTree::value_type& v, pt.get_child("enumNames") )
+        for( const PTree::value_type& v: pt.get_child("enumNames") )
         {
             if( v.first.compare("name")==0 )
             {               

@@ -81,7 +81,7 @@ void ParameterList::read( const PTree& pt )
     }
 
     // FIXME: Deserialization is hardcoded for specialized types.
-    BOOST_FOREACH( const PTree::value_type& v, pt.get_child(root) )
+    for( const PTree::value_type& v: pt.get_child(root) )
     {
         if( v.first.compare("Parameter")==0 )
         {

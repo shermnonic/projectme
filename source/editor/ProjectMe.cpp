@@ -1,7 +1,6 @@
 #include "ProjectMe.h"
 #include "ModuleFactory.h"
 #include <iostream>
-#include <boost/foreach.hpp>
 using std::cerr;
 using std::endl;
 
@@ -141,7 +140,7 @@ void ProjectMe::deserialize( Serializable::PropertyTree& pt )
     ModuleManager::ModuleArray& modules = m_moduleManager.modules();
         
     int modCount=0;
-    BOOST_FOREACH( PropertyTree::value_type& v, pt.get_child("ProjectMe.Modules") )
+    for( PropertyTree::value_type& v: pt.get_child("ProjectMe.Modules") )
     {
         // Create module instance of specific type
         if( v.first.compare("Module")==0 )
@@ -190,7 +189,7 @@ void ProjectMe::deserialize( Serializable::PropertyTree& pt )
         // WORKAROUND: RenderSet requires pointer to ModuleManager for mapping
         set->setModuleManager( &m_moduleManager );
 
-        BOOST_FOREACH( PropertyTree::value_type& v, pt.get_child("ProjectMe.RenderSets") )
+        for( PropertyTree::value_type& v: pt.get_child("ProjectMe.RenderSets") )
         {
             if( v.first.compare("RenderSet")==0 )
             {               
@@ -214,7 +213,7 @@ void ProjectMe::deserialize( Serializable::PropertyTree& pt )
     int nCon = pt.get("ProjectMe.NumConnections",0);
     if( nCon > 0 )
     {
-        BOOST_FOREACH( PropertyTree::value_type& v, pt.get_child("ProjectMe.Connections") )
+        for( PropertyTree::value_type& v: pt.get_child("ProjectMe.Connections") )
         {       
             if( v.first.compare("Connection")==0 )
             {

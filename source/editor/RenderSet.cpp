@@ -2,7 +2,6 @@
 #include "ProjectMe.h" // RenderSet depends on ProjectMe
 #include "glbase.h"
 #include <iostream>
-#include <boost/foreach.hpp>
 using std::cerr;
 using std::endl;
 using std::string;
@@ -220,7 +219,7 @@ void RenderArea::deserialize( Serializable::PropertyTree& pt )
 
     m_poly.clear();
 
-    BOOST_FOREACH( PropertyTree::value_type& l, pt.get_child("Vertices") )
+    for( const PropertyTree::value_type& l: pt.get_child("Vertices") )
     {       
         if( l.first.compare("Vertex")==0 )
         {
@@ -609,7 +608,7 @@ void RenderSet::deserialize( Serializable::PropertyTree& pt )
     m_mapper  .resize( numAreas, NULL ); // Mappings can be deserialized before areas
     m_channels.resize( numAreas );
     
-    BOOST_FOREACH( PropertyTree::value_type& v, pt.get_child("RenderSet") )
+    for(PropertyTree::value_type& v: pt.get_child("RenderSet"))
     {       
         // Read render area configuration
         if( v.first.compare("RenderArea")==0 )
