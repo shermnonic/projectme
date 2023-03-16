@@ -169,7 +169,7 @@ void main(void)
             </OptionList>
             <ModuleRenderer>
                 <Position>
-                    <x>-249</x>
+                    <x>-248</x>
                     <y>23</y>
                 </Position>
             </ModuleRenderer>
@@ -197,7 +197,7 @@ void main(void)
             </ModuleRenderer>
             <ImageModule>
                 <Texture>
-                    <Filename>Y:/Repos/shermnonic/projectme/source/editor/particle.png</Filename>
+                    <Filename>..\particle.png</Filename>
                 </Texture>
             </ImageModule>
         </Module>

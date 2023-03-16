@@ -7,48 +7,48 @@
 
 # -- BASS related source
 if(PROJECTME_USE_BASS)
-	set( BASS_MOC_SRCS
-		SoundInputWidget.h
-	)
-	set( BASS_GUI_SRCS 
-		SoundInputWidget.h
-		SoundInputWidget.cpp
-	)
-	set( BASS_ENGINE_SRCS 
-		SoundInput.h
-		SoundInput.cpp
-		SoundModule.h
-		SoundModule.cpp
-	)
-	set( BASS_LIBRARIES
-		${BASS_LIBRARY}
-	)
+    set( BASS_MOC_SRCS
+        SoundInputWidget.h
+    )
+    set( BASS_GUI_SRCS 
+        SoundInputWidget.h
+        SoundInputWidget.cpp
+    )
+    set( BASS_ENGINE_SRCS 
+        SoundInput.h
+        SoundInput.cpp
+        SoundModule.h
+        SoundModule.cpp
+    )
+    set( BASS_LIBRARIES
+        ${BASS_LIBRARY}
+    )
 else()
-	set( BASS_LIBRARIES
-		""
-	)
+    set( BASS_LIBRARIES
+        ""
+    )
 endif()
 
 # -- libVLC related source
 if(PROJECTME_USE_LIBVLC)
     set( LIBVLC_ENGINE_SRCS 
-		VideoPlayer.h
-		VideoPlayer.cpp
-		VideoModule.h
-		VideoModule.cpp
-	)
+        VideoPlayer.h
+        VideoPlayer.cpp
+        VideoModule.h
+        VideoModule.cpp
+    )
 endif()
 
 # -- qne Qt Node Editor
 set( qne_SRCS
-	qneblock.h
-	qneconnection.h
-	qneport.h
-	qnodeseditor.h
-	qneblock.cpp
-	qneconnection.cpp
-	qneport.cpp
-	qnodeseditor.cpp
+    qneblock.h
+    qneconnection.h
+    qneport.h
+    qnodeseditor.h
+    qneblock.cpp
+    qneconnection.cpp
+    qneport.cpp
+    qnodeseditor.cpp
 )
 source_group("qne" FILES ${qne_SRCS})
 
@@ -80,87 +80,88 @@ set( glutils_SOURCES
 source_group("glutils" FILES ${glutils_SOURCES})
 
 set( gui_SRCS
-	main.cpp
-	MainWindow.cpp
-	MainWindow.h
-	RenderSetWidget.h
-	RenderSetWidget.cpp
-	ModuleManagerWidget.h
-	ModuleManagerWidget.cpp
-	ModuleRendererWidget.h
-	ModuleRendererWidget.cpp
-	ModuleParameterWidget.h
-	ModuleParameterWidget.cpp
-	MapperWidget.h
-	MapperWidget.cpp
-	ComboBoxDelegate.h
-	ComboBoxDelegate.cpp
-	CodeEditor.h
-	CodeEditor.cpp
-	Highlighter.h
-	Highlighter.cpp
-	ShaderEditorWidget.h
-	ShaderEditorWidget.cpp
-	NodeEditorWidget.h
-	NodeEditorWidget.cpp
-	QAutoGUI.h
-	${BASS_GUI_SRCS}
+    main.cpp
+    MainWindow.cpp
+    MainWindow.h
+    RenderSetWidget.h
+    RenderSetWidget.cpp
+    ModuleManagerWidget.h
+    ModuleManagerWidget.cpp
+    ModuleRendererWidget.h
+    ModuleRendererWidget.cpp
+    ModuleParameterWidget.h
+    ModuleParameterWidget.cpp
+    MapperWidget.h
+    MapperWidget.cpp
+    ComboBoxDelegate.h
+    ComboBoxDelegate.cpp
+    CodeEditor.h
+    CodeEditor.cpp
+    Highlighter.h
+    Highlighter.cpp
+    ShaderEditorWidget.h
+    ShaderEditorWidget.cpp
+    NodeEditorWidget.h
+    NodeEditorWidget.cpp
+    QAutoGUI.h
+    ${BASS_GUI_SRCS}
 )
 source_group("gui" FILES ${gui_SRCS})
 
 set( engine_SRCS
-	DistanceTransformFelzenszwalb.h
-	Connection.h
-	Connection.cpp
-	Module.h
-	Module.cpp
-	ModuleFactory.h
-	ModuleFactory.cpp
-	RenderSet.h
-	RenderSet.cpp
-	ShaderModule.h
-	ShaderModule.cpp
-	ShaderPreprocessor.h
-	ShaderPreprocessor.cpp
-	ShaderPrecompiler2.h
-	ShaderPrecompiler2.cpp
-	ParticleModule.h
-	ParticleModule.cpp
-	ParticleSystem.h
-	ParticleSystem.cpp
-	ImageModule.h
-	ImageModule.cpp
-	PotentialFromImageModule.h
-	PotentialFromImageModule.cpp
-	ProjectMe.h
-	ProjectMe.cpp
-	hraw.h	
-	hraw.cpp
-	Parameter.h
-	Parameter.cpp
-	Serializable.h
-	${BASS_ENGINE_SRCS}
+    DistanceTransformFelzenszwalb.h
+    Connection.h
+    Connection.cpp
+    Module.h
+    Module.cpp
+    ModuleFactory.h
+    ModuleFactory.cpp
+    RenderSet.h
+    RenderSet.cpp
+    ShaderModule.h
+    ShaderModule.cpp
+    ShaderPreprocessor.h
+    ShaderPreprocessor.cpp
+    ShaderPrecompiler2.h
+    ShaderPrecompiler2.cpp
+    ParticleModule.h
+    ParticleModule.cpp
+    ParticleSystem.h
+    ParticleSystem.cpp
+    ImageModule.h
+    ImageModule.cpp
+    PotentialFromImageModule.h
+    PotentialFromImageModule.cpp
+    ProjectMe.h
+    ProjectMe.cpp
+    hraw.h	
+    hraw.cpp
+    Parameter.h
+    Parameter.cpp
+    Serializable.h
+    Serializable.cpp
+    ${BASS_ENGINE_SRCS}
     ${LIBVLC_ENGINE_SRCS}
 )
 source_group("engine" FILES ${engine_SRCS})
 
 add_executable( projectme
-	${scene_SRCS}
-	${gui_SRCS}
-	${qne_SRCS}
-	${engine_SRCS}
-	${projectme_RCC_SRCS}
-	${glutils_SOURCES}
-	projectme.rc    # Visual Studio resource(s), e.g. windows application icon	
+    ${scene_SRCS}
+    ${gui_SRCS}
+    ${qne_SRCS}
+    ${engine_SRCS}
+    ${projectme_RCC_SRCS}
+    ${glutils_SOURCES}
+    projectme.rc    # Visual Studio resource(s), e.g. windows application icon	
 )
 
 target_link_libraries( projectme
     Qt5::Widgets
     Qt5::OpenGL
     GLEW::GLEW 
-	${OPENGL_LIBRARIES}
-	${BASS_LIBRARIES} # maybe empty string
-	${LIBVLC_LIBRARY} # maybe empty string
-	#${Boost_SYSTEM_LIBRARY_RELEASE} # WORKAROUND: Required by libVLC code
+    ${OPENGL_LIBRARIES}
+    ${BASS_LIBRARIES} # maybe empty string
+    ${LIBVLC_LIBRARY} # maybe empty string
+    #${Boost_SYSTEM_LIBRARY_RELEASE} # WORKAROUND: Required by libVLC code
     #Boost::boost     
 )

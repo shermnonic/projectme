@@ -7,7 +7,6 @@
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/xml_parser.hpp>
 
-
 /**
     \class Serializable
 
@@ -19,10 +18,13 @@ class Serializable
 public:
     typedef boost::property_tree::ptree PropertyTree;
 
-    Serializable()
-    {
-        setName( getDefaultName() );
-    }
+    /// Return filepath relative to current working directory.
+    /// The latter should be already set to the directory of the associated
+    /// project file beforehand.
+    /// @TODO: Refactor from string filenames to filesystem::path
+    static std::string getRelativePath(std::string filename);
+
+    Serializable();
 
     ///@name Interface
     ///@{
@@ -32,31 +34,14 @@ public:
 
     ///@name Default serialization to/from disk via XML
     ///@{
-    void serializeToDisk( std::string filename )
-    {
-        PropertyTree pt = serialize();
-        boost::property_tree::xml_writer_settings<std::string> settings(' ', 4);
-        write_xml( filename, pt, std::locale("en_US.UTF-8"), settings);
-    }   
-    bool deserializeFromDisk( std::string filename )
-    {
-        PropertyTree pt;
-        read_xml( filename, pt, 0, std::locale("en_US.UTF-8"));
-        deserialize( pt );
-        return true; // FIXME: Implement some error-checking!
-    }
+    void serializeToDisk( std::string filename ) const;
+    bool deserializeFromDisk( std::string filename );
     ///@}
 
     ///@{ Access name
-    std::string getName() const { return m_name; }
-    void setName( const std::string& name ) { m_name = name; }
-    virtual std::string getDefaultName()
-    {
-        static int count=0;
-        std::stringstream ss;
-        ss << "unnamed" << count++;
-        return ss.str();
-    }
+    std::string getName() const;
+    void setName( const std::string& name );
+    virtual std::string getDefaultName();
     ///@}
 
 private:

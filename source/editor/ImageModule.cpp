@@ -42,7 +42,7 @@ bool ImageModule::createImage( int width, int height )
     m_height = height;
     m_filename = std::string("");
     
-    m_dirty = true; // Upload texture in next render() call     
+    m_dirty = true; // Upload texture in next render() call
     return true;
 }
 
@@ -83,7 +83,7 @@ bool ImageModule::loadImage( const char* filename )
     m_height = height;
     m_filename = std::string(filename);
         
-    m_dirty = true; // Upload texture in next render() call     
+    m_dirty = true; // Upload texture in next render() call
     return true;
 }
 
@@ -258,7 +258,8 @@ Serializable::PropertyTree& ImageModule::serialize() const
     static Serializable::PropertyTree cache;
     cache = ModuleRenderer::serialize();
     
-    cache.put("ImageModule.Texture.Filename",m_filename);
+    std::string filename = Serializable::getRelativePath(m_filename);
+    cache.put("ImageModule.Texture.Filename", filename);
 
     return cache;
 }
