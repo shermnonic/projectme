@@ -35,12 +35,13 @@ public:
     void serializeToDisk( std::string filename )
     {
         PropertyTree pt = serialize();
-        write_xml( filename, pt );
+        boost::property_tree::xml_writer_settings<std::string> settings(' ', 4);
+        write_xml( filename, pt, std::locale("en_US.UTF-8"), settings);
     }   
     bool deserializeFromDisk( std::string filename )
     {
         PropertyTree pt;
-        read_xml( filename, pt );
+        read_xml( filename, pt, 0, std::locale("en_US.UTF-8"));
         deserialize( pt );
         return true; // FIXME: Implement some error-checking!
     }
