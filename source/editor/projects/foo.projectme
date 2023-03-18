@@ -197,7 +197,7 @@ void main(void)
             </ModuleRenderer>
             <ImageModule>
                 <Texture>
-                    <Filename>..\particle.png</Filename>
+                    <Filename>./data/particle.png</Filename>
                 </Texture>
             </ImageModule>
         </Module>
