@@ -4,6 +4,12 @@ project(projectme
     VERSION 0.1
     DESCRIPTION "projectme by 386dx25"
     LANGUAGES CXX)
+    
+# toylib submodule
+set(BUILD_GLTOYS_APPS false CACHE BOOL "BUILD_GLTOYS_APPS")
+set(BUILD_TOYLIB_TEST_APPS false CACHE BOOL "BUILD_TOYLIB_TEST_APPS")
+add_subdirectory("external/toylib/source/")
+include_directories("external/toylib/source/") # FIXME: Provide clean include path in gltoys project
 
 # Optional audio support via un4seen BASS library
 set(PROJECTME_USE_BASS "FALSE" CACHE BOOL "Enable audio support via BASS library." )
@@ -39,4 +45,4 @@ include_directories(
     ${GLEW_INCLUDE_DIR}
 )
 
-add_subdirectory("editor")
+add_subdirectory("source/editor")

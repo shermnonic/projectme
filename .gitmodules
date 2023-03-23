@@ -1,0 +1,4 @@
+[submodule "external/toylib"]
+	path = external/toylib
+	url = https://github.com/shermnonic/gltoys
+	branch = feature/toylib-as-submodule
