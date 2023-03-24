@@ -53,6 +53,8 @@ public:
 
     void setRenderUpdateEnabled( bool b );
 
+    QList<QAction*> getRenderActions() { return renderActions; }
+
     ///@name Fullscreen
     ///@{
     QAction* getToggleFullscreenAction() { return toggleFullscreenAction; }

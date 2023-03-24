@@ -819,6 +819,8 @@ void MainWindow::newScreen()
     w->setAttribute( Qt::WA_DeleteOnClose );
     w->setRenderSet( m_projectMe.renderSetManager().getActiveRenderSet() );
     w->setWindowTitle("Screen #"+QString::number(screenCount++));
+    w->setGeometry(this->geometry().x()+100,this->geometry().y()+100,640,480);
+    
     w->show();
 
     qDebug("Add screen %p", (void*)w);
@@ -842,9 +844,9 @@ void MainWindow::updateViewMenu()
 
     for( int i=0; i < m_screens.size(); i++ )
     {
-        QAction* a = m_screens.at(i)->getToggleFullscreenAction();
-        a->setText( tr("Toggle fullscreen for screen #%1").arg(i+1) );
-        m_menuView->addAction( a );
+        m_menuView->addSeparator()->setText(tr("Screen #%1").arg(i+1));
+        m_menuView->addAction(m_screens.at(i)->getToggleFullscreenAction());
+        m_menuView->addActions(m_screens.at(i)->getRenderActions());
     }
 
     m_mapperWidget->updateTable();
