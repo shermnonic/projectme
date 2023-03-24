@@ -66,19 +66,6 @@ include_directories(
     ./
 )
 
-set( glutils_SOURCES
-    glutils/GLConfig.h
-    glutils/GLError.cpp
-    glutils/GLError.h
-    glutils/GLSLProgram.cpp
-    glutils/GLSLProgram.h
-    glutils/GLTexture.cpp
-    glutils/GLTexture.h
-    glutils/RenderToTexture.cpp
-    glutils/RenderToTexture.h
-)
-source_group("glutils" FILES ${glutils_SOURCES})
-
 set( gui_SRCS
     main.cpp
     MainWindow.cpp
@@ -151,11 +138,11 @@ add_executable( projectme
     ${qne_SRCS}
     ${engine_SRCS}
     ${projectme_RCC_SRCS}
-    ${glutils_SOURCES}
-    projectme.rc    # Visual Studio resource(s), e.g. windows application icon	
+    projectme.rc
 )
 
 target_link_libraries( projectme
+    toylib  # submodule that provides /glutils
     Qt5::Widgets
     Qt5::OpenGL
     GLEW::GLEW 
@@ -163,5 +150,5 @@ target_link_libraries( projectme
     ${BASS_LIBRARIES} # maybe empty string
     ${LIBVLC_LIBRARY} # maybe empty string
     #${Boost_SYSTEM_LIBRARY_RELEASE} # WORKAROUND: Required by libVLC code
-    #Boost::boost     
+    #Boost::boost
 )
