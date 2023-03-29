@@ -15,6 +15,13 @@ Generate build files via cmake e.g. for Windows x64:
 
 Tested with Visual Studio 2022 on Windows 10.
 
+## Dependencies
+
+- [Qt5](https://www.qt.io/) GUI toolkit
+- [boost](https://www.boost.org/) C++ libraries (in particular `boost::property_tree`)
+- [glew](https://glew.sourceforge.net/) OpenGL extension handling 
+- [glm](https://github.com/g-truc/glm) mathematics library
+
 ## Acknowledgements
 
 This software uses the following 3rd party components in original or modified form:
