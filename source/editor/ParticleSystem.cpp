@@ -340,7 +340,7 @@ void ParticleSystem::render()
     glUniform1i( iSprite,   3 ); // Texture unit 3 - Point Sprite (if any)
     glUniform1i( iDoSprite, m_texSprite >= 0 );
     glUniform1f( iPointSize, (m_texSprite>=0) ? 10.f * m_pointSize : m_pointSize ); 
-    glUniform3f( iSize, m_width,m_height,0.f );
+    glUniform3f( iSize, static_cast<GLfloat>(m_width), static_cast<GLfloat>(m_height), 0.f );
     glUniform3f( iTargetSize, m_targetSize[0], m_targetSize[1], 0.f );
 
     checkGLError("ParticleSystem::render() : After setting shader uniforms");
@@ -446,7 +446,7 @@ void ParticleSystem::advectParticles()
 
     // Set shader uniforms / samplers   
     GLint iSize  = m_advectShader->getUniformLocation("iSize");
-    glUniform3f( iSize, m_width,m_height,0.f );
+    glUniform3f( iSize, static_cast<GLfloat>(m_width), static_cast<GLfloat>(m_height), 0.f );
 
     GLint iPos   = m_advectShader->getUniformLocation("iPos");
     GLint iVel   = m_advectShader->getUniformLocation("iVel");

@@ -204,7 +204,7 @@ void ParticleModule::render()
         }
 
         // Render particles
-        m_ps.setFraction( m_params.fraction.value() );
+        m_ps.setFraction( static_cast<float>(m_params.fraction.value()) );
         m_ps.setSpriteBlending( m_params.blendMode.value() );
         m_ps.setPointSize( (float)m_params.pointSize.value() );
         m_ps.setTargetSize( (float)m_opts.width.value(), (float)m_opts.height.value() );

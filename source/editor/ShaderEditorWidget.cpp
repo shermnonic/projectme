@@ -22,7 +22,6 @@ ShaderEditorWidget::ShaderEditorWidget( QWidget* parent )
     m_codeEditor->document()->setDefaultFont( font );   
     
     m_codeEditor->setLineWrapMode( QPlainTextEdit::NoWrap );
-    m_codeEditor->setTabStopWidth( 4 * QFontMetrics(font).averageCharWidth() );
 
     Highlighter* highlighter = new Highlighter( m_codeEditor->document() );
     
