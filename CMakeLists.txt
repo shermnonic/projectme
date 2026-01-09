@@ -1,10 +1,20 @@
-cmake_minimum_required(VERSION 3.1)
+cmake_minimum_required(VERSION 3.28)
 
 project(projectme
-    VERSION 0.1
+    VERSION 0.2.0
     DESCRIPTION "projectme by 386dx25"
     LANGUAGES CXX)
-    
+
+
+if(DEFINED ENV{VCPKG_ROOT})
+    include("$ENV{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake")
+elseif(EXISTS "${CMAKE_SOURCE_DIR}/vcpkg/scripts/buildsystems/vcpkg.cmake")
+    include("${CMAKE_SOURCE_DIR}/vcpkg/scripts/buildsystems/vcpkg.cmake")
+else()
+    message(FATAL_ERROR "Vcpkg not found")
+endif()
+
+
 # toylib submodule
 set(BUILD_GLTOYS_APPS false CACHE BOOL "BUILD_GLTOYS_APPS")
 set(BUILD_TOYLIB_TEST_APPS false CACHE BOOL "BUILD_TOYLIB_TEST_APPS")
